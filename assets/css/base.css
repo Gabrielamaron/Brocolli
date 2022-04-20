@@ -1,0 +1,30 @@
+:root {
+  /* cores */
+  --bg: #1c1c1c;
+  --chamada: #00FF00;
+  --componentes: #228B22;
+  --fonte: #fdfdfd;
+  --fonte-hover: #000000;
+
+
+  /* tamanhos */
+  --padding-padrao: 0.45em;
+  --borda-padrao: 0.75em;
+
+  /*outros*/
+  --transicao-padrao: 625ms
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fonte);
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}

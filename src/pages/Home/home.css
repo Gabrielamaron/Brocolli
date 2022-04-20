@@ -1,0 +1,51 @@
+/* Menu */
+.logo {
+  border-radius: var(--borda-padrao);
+  transition: var(--transicao-padrao);
+}
+
+.logo:hover {
+  background-color: var(--componentes);
+}
+
+.logo__imagem {
+  margin-right: 0.435em;
+  max-width: 5.55em;
+  width: 75%;
+}
+
+.menu-home {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.menu-home a:hover {
+  color: var(--fonte-hover);
+  background-color: var(--chamada);
+}
+
+/*Main*/
+
+/*Destaques*/
+.destaques-imagem {
+  transition: var(--transicao-padrao);
+  width: 25%;
+}
+
+.destaques-imagem:hover {
+  width: 30%;
+}
+
+
+/*Vantagens*/
+.vantagens {
+  border-radius: var(--borda-padrao);
+  transition: var(--transicao-padrao);
+}
+
+.vantagens:hover {
+  background-color: var(--componentes);
+  height: 90% !important;
+  width: 30% !important;
+}
