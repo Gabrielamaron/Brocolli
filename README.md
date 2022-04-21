@@ -5,8 +5,7 @@
 
 
 ## Instalação
-Para clonar esse repositório siga os seguintes passos
-### 1° modo
+### 1° modo: clonar o repositório
 
 #### 1°) Clonar repositório
 ```bash
@@ -23,10 +22,8 @@ Dependências do projeto: Vite, Bootstrap, Material-ui, React-Router
   npm run dev
 ```
 
-### 2° modo 
-#### Usar o Fork
-Basta usar a ferramenta do Fork que se encontra no repositório, e assim você 
-irá copiar esse repo para sua conta.
+### 2° modo: Usar o Fork 
+#### Basta usar a ferramenta do Fork que se encontra no repositório, e assim você irá copiar esse projeto para sua conta. 
 
 
 ## Contribuição
