@@ -23,7 +23,7 @@ export function Destaques(props) {
           {props.titulo}
           {props.icon}
         </h2>
-        <p className="w-50">{props.descricao}</p>
+        <p className="w-50 descricao">{props.descricao}</p>
       </Box>
       <img
         src={props.imagem}

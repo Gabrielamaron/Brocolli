@@ -4,10 +4,6 @@
   transition: var(--transicao-padrao);
 }
 
-.logo:hover {
-  background-color: var(--componentes);
-}
-
 .logo__imagem {
   margin-right: 0.435em;
   max-width: 5.55em;
@@ -20,11 +16,15 @@
   justify-content: space-evenly;
 }
 
-.menu-home a:hover {
-  color: var(--fonte-hover);
-  background-color: var(--chamada);
+@media screen and (min-width: 768px) {
+  .logo:hover {
+    background-color: var(--componentes);
+  }
+  .menu-home a:hover {
+    color: var(--fonte-hover);
+    background-color: var(--chamada);
+  }
 }
-
 /*Main*/
 
 /*Destaques*/
@@ -33,10 +33,17 @@
   width: 25%;
 }
 
-.destaques-imagem:hover {
-  width: 30%;
+@media screen and (max-width: 768px) {
+  .descricao {
+    width: 100% !important;
+  }
 }
 
+@media screen and (min-width: 768px) {
+  .destaques-imagem:hover {
+    width: 30%;
+  }
+}
 
 /*Vantagens*/
 .vantagens {
@@ -44,8 +51,17 @@
   transition: var(--transicao-padrao);
 }
 
-.vantagens:hover {
-  background-color: var(--componentes);
-  height: 90% !important;
-  width: 30% !important;
+@media screen and (max-width: 768px) {
+  .vantagens {
+    height: 90% !important;
+    width: 30% !important;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .vantagens:hover {
+    background-color: var(--componentes);
+    height: 90% !important;
+    width: 30% !important;
+  }
 }

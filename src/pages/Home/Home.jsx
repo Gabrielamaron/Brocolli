@@ -24,6 +24,7 @@ export function Home() {
         <Menu />
       </Box>
       <Box component="main">
+        
         {/* Destaques */}
 
         <Box>
@@ -177,7 +178,7 @@ export function Home() {
             alt="Logo de Copyright"
           />
             <p>©Brocolli</p>
-            <p>Direitos reservados</p>
+            <p className="text-center">Direitos reservados</p>
         </Box>
       </Box>
     </>
