@@ -1,7 +1,7 @@
 # <img width="80em" src="./assets/img/logo.png"/>Brocolli
 
 <p> Corretora de criptomoedas feita com React. </p>
-<p> Projeto feito para portfólio. Não é realizado nenhum tipo de transação financeira por meio dessa aplicação! </p>
+<p> Projeto feito apenas para portfólio. Não é realizado nenhum tipo de transação financeira por meio dessa aplicação! </p>
 
 
 ## Instalação
