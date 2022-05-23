@@ -28,3 +28,18 @@ Dependências do projeto: Vite, Bootstrap, Material-ui, React-Router
 
 ## Contribuição
 Sinta-se à vontade para adicionar um pull request no projeto! =)
+
+
+## Sobre 
+Tecnologias usadas:
+### Vite: "^2.9.0"
+Ferramenta de criação de framework React.
+
+### Bootstrap: "^5.1.3" 
+Framework CSS
+
+### Mui: "^5.6.1"
+Lib de componentes
+
+### React-Router: "^6.3.0"
+Ferramenta de roteamento 
