@@ -1,9 +1,15 @@
-import { Box } from "@mui/material";
+import { Box, createTheme } from "@mui/material";
 import { Logo } from "../../componentes/Base/Logo/Logo.jsx";
 import { Menu } from "../../componentes/Base/Menu/Menu.jsx";
 import { Outlet } from "react-router-dom";
 import "./cadastrar.css";
 import { useState } from "react";
+
+export const theme = createTheme({
+  components: {
+    color: "var(--componentes)",
+  },
+});
 
 export function Cadastrar() {
   return (
@@ -22,9 +28,8 @@ export function Cadastrar() {
 
       {/* Outlet */}
       <main>
-        <Outlet className="h-75 w-100" />
+        <Outlet />
       </main>
     </>
   );
 }
-//Ir para Routes

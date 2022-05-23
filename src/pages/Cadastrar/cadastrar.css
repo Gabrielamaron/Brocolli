@@ -1,5 +1,9 @@
+/* Inicial */
 @media screen and (min-width: 758px) {
   .botao-avancar:hover {
     background-color: var(--chamada) !important;
   }
 }
+
+/* Informacoes1 */
+
