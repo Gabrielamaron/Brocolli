@@ -1,11 +1,11 @@
 import { Box, TextField, Button } from "@mui/material";
 import React from "react";
+import { atualizaInformacoes2 } from "../../../Routes.jsx";
 
 // informacoes2: usuário do Github e criar senha
 
-
 export function retornaDadosInformacoes2() {
-  return dadosInformacoes2
+  return dadosInformacoes2;
 }
 
 export function Informacoes2() {
@@ -26,6 +26,10 @@ export function Informacoes2() {
       sx={{
         height: "80vh",
         padding: "var(--padding-padrao)",
+      }}
+      onSubmit={(event) => {
+        event.preventDefault();
+        atualizaInformacoes2(usuario, senha);
       }}
     >
       <Box className="text-center">
@@ -87,6 +91,7 @@ export function Informacoes2() {
           }}
           value={senha}
           variant="filled"
+          type="password"
           onChange={(event) => {
             const novaSenha = event.target.value;
             setSenha(novaSenha);
@@ -130,7 +135,6 @@ export function Informacoes2() {
     </Box>
   );
 }
-
 
 function imprimirTeste(valor) {
   console.log(valor);

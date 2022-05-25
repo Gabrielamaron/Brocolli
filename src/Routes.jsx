@@ -1,18 +1,66 @@
 import React from "react";
-import "../assets/css/base.css";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 //pages
 import { Home } from "./pages/Home/Home.jsx";
 import { Cadastrar } from "./pages/Cadastrar/Cadastrar.jsx";
 import { Login } from "./pages/Login/Login.jsx";
+
+//nested components
 import { Inicial } from "./componentes/Cadastrar/Inicial/Inicial.jsx";
 import { Informacoes1 } from "./componentes/Cadastrar/Informacoes/Informacoes1.jsx";
 import { Informacoes2 } from "./componentes/Cadastrar/Informacoes/Informacoes2.jsx";
 
-//dados de informacoes1 e informacoes2 serao obtidos por meio do retorno da função retornaDadosInformacoesX()
-//onde X é 1 ou 2, obtendo as respectivas informações
-//Depois, basta agrupar em um novo objeto e manipula-lo a fim de o enviar ao supabase
+
+//Atenção: propriedades iniciadas com "_" são privadas
+
+const dadosUsuario = {
+  //informacoes1
+  nomeUsuario: "",
+  _dataDeNascimentoUsuario: "",
+  _localidadeUsuario: "",
+
+  setNomeUsuario(novoNome) {
+    this.nomeUsuario = novoNome;
+  },
+  setDataDeNascimentoUsuario(novaDataDeNascimento) {
+    this._dataDeNascimentoUsuario = novaDataDeNascimento;
+  },
+  setLocalidadeUsuario(novaLocalidade) {
+    this._localidadeUsuario = novaLocalidade;
+  },
+
+  //informacoes2
+  _usuarioUsuario: "",
+  _senhaUsuario: "",
+
+  setUsuarioUsuario(novoUsuario) {
+    this._usuarioUsuario = novoUsuario;
+  },
+  setSenha(novaSenha) {
+    this._senhaUsuario = novaSenha;
+  },
+};
+
+// funções de atualização com os valores do formulário
+export function atualizaInformacoes1(
+  novoNome,
+  novaDataDeNascimento,
+  novaLocalidade
+) {
+  dadosUsuario.setNomeUsuario(novoNome);
+  dadosUsuario.setDataDeNascimentoUsuario(novaDataDeNascimento);
+  dadosUsuario.setLocalidadeUsuario(novaLocalidade);
+
+  console.log(dadosUsuario);
+}
+
+export function atualizaInformacoes2(novoUsuario, novaSenha) {
+  dadosUsuario.setUsuarioUsuario(novoUsuario);
+  dadosUsuario.setSenha(novaSenha);
+
+  console.log(dadosUsuario);
+}
 
 export function Rotas() {
   return (

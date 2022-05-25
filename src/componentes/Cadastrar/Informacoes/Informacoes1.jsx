@@ -4,24 +4,14 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
+import { atualizaInformacoes1 } from "../../../Routes.jsx";
 //informacoes1: nome, data de nascimento, localidade
-
-export function retornaDadosInformacoes1() {
-  return dadosInformacoes1;
-}
 
 export function Informacoes1() {
   //informacoes1
   const [nome, setNome] = React.useState("");
   const [dataNascimento, setDataNascimento] = React.useState(null);
   const [localidade, setLocalidade] = React.useState("");
-
-  //objeto de informacoes1
-  const dadosInformacoes1 = {
-    nomeDado: nome,
-    dataNascimentoDado: dataNascimento,
-    localidadeDado: localidade,
-  };
 
   const [textoValidacaoData, setTextoValidacaoData] = React.useState("");
 
@@ -30,12 +20,8 @@ export function Informacoes1() {
       className="d-flex flex-column justify-content-evenly"
       component="form"
       onSubmit={(event) => {
-        checaIdadeNovoUsuario(
-          event,
-          dataNascimento,
-          setTextoValidacaoData,
-        );
-        console.log(dadosInformacoes1);
+        checaIdadeNovoUsuario(event, dataNascimento, setTextoValidacaoData);
+        atualizaInformacoes1(nome, dataNascimento, localidade);
       }}
       sx={{
         height: "80vh",
@@ -176,11 +162,7 @@ export function Informacoes1() {
 }
 
 //verificação
-function checaIdadeNovoUsuario(
-  event,
-  dataNascimento,
-  assessorSetTexto,
-) {
+function checaIdadeNovoUsuario(event, dataNascimento, assessorSetTexto) {
   event.preventDefault();
   const dataAtual = new Date();
   const dataFormatada = new Date(
@@ -191,10 +173,8 @@ function checaIdadeNovoUsuario(
 
   if (!confereMaiorDeIdade(dataFormatada, dataAtual)) {
     assessorSetTexto("Você deve ser maior de idade para abrir uma conta!");
-    console.log("rodando código para menor de idade");
     return;
   } else {
-    console.log("rodando código para maior de idade");
     assessorSetTexto("");
     window.location.href = "2i";
   }

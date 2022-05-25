@@ -1,25 +1,24 @@
 :root {
   /* cores */
   --bg: #1c1c1c;
-  --chamada: #00FF00;
-  --componentes: #228B22;
+  --chamada: #00ff00;
+  --componentes: #228b22;
   --fonte: #fdfdfd;
   --fonte-hover: #000000;
-
 
   /* tamanhos */
   --padding-padrao: 0.45em;
   --borda-padrao: 0.75em;
 
   /*outros*/
-  --transicao-padrao: 625ms
+  --transicao-padrao: 625ms;
 }
 
 body {
   background-color: var(--bg);
   color: var(--fonte);
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -29,9 +28,23 @@ code {
     monospace;
 }
 
+.loading {
+  animation: is-rotating 1s infinite;
+  border: 6px solid #e5e5e5;
+  border-radius: 50%;
+  border-top-color: var(--componentes);
+  height: 50px;
+  width: 50px;
+}
 
 @media screen and (max-width: 768px) {
   body {
     font-size: 0.85em;
+  }
+}
+
+@keyframes is-rotating {
+  to {
+    transform: rotate(1turn);
   }
 }
