@@ -1,17 +1,16 @@
 import * as React from "react";
-import { Box, TextField, Button, ThemeProvider } from "@mui/material";
+import { Box, TextField, Button } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { useNavigate } from "react-router-dom";
+
+//informacoes1: nome, data de nascimento, localidade
 
 export function retornaDadosInformacoes1() {
   return dadosInformacoes1;
 }
 
 export function Informacoes1() {
-  const navigate = useNavigate();
-
   //informacoes1
   const [nome, setNome] = React.useState("");
   const [dataNascimento, setDataNascimento] = React.useState(null);
@@ -35,7 +34,6 @@ export function Informacoes1() {
           event,
           dataNascimento,
           setTextoValidacaoData,
-          navigate
         );
         console.log(dadosInformacoes1);
       }}
@@ -63,7 +61,7 @@ export function Informacoes1() {
           Antes de começarmos, conte mais sobre você:
         </h2>
       </Box>
-      {/* Nome  */}
+      {/* nome  */}
       <Box
         className="w-75"
         sx={{
@@ -87,7 +85,7 @@ export function Informacoes1() {
           }}
         />
       </Box>
-      {/* Data de Nascimento */}
+      {/* data de nascimento */}
       <Box
         className="w-75"
         sx={{
@@ -140,7 +138,7 @@ export function Informacoes1() {
           }}
         />
       </Box>
-      {/* Botão enviar */}
+      {/* botao enviar */}
       <Box
         className="d-flex justify-content-end w-100"
         sx={{
@@ -182,7 +180,6 @@ function checaIdadeNovoUsuario(
   event,
   dataNascimento,
   assessorSetTexto,
-  navigate
 ) {
   event.preventDefault();
   const dataAtual = new Date();
@@ -194,10 +191,12 @@ function checaIdadeNovoUsuario(
 
   if (!confereMaiorDeIdade(dataFormatada, dataAtual)) {
     assessorSetTexto("Você deve ser maior de idade para abrir uma conta!");
+    console.log("rodando código para menor de idade");
     return;
   } else {
+    console.log("rodando código para maior de idade");
     assessorSetTexto("");
-    window.location.href="2i"
+    window.location.href = "2i";
   }
 }
 
