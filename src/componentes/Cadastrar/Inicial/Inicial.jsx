@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
 import { Box } from "@mui/material";
 
+async function signInWithGithub() {
+  const { user, session, error } = await supabase.auth.signIn({
+    provider: "github",
+  });
+}
+
 export function Inicial() {
   return (
     <Box
@@ -40,7 +46,7 @@ export function Inicial() {
             textDecoration: "none",
             transition: "var(--transicao-padrao)",
           }}
-          to="1i"
+          to=":auth"
         >
           Avançar
           <svg

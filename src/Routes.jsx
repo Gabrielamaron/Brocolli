@@ -1,6 +1,8 @@
 import React from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 
+
+
 //pages
 import { Home } from "./pages/Home/Home.jsx";
 import { Cadastrar } from "./pages/Cadastrar/Cadastrar.jsx";
@@ -8,9 +10,9 @@ import { Login } from "./pages/Login/Login.jsx";
 
 //nested components
 import { Inicial } from "./componentes/Cadastrar/Inicial/Inicial.jsx";
-import { Informacoes1 } from "./componentes/Cadastrar/Informacoes/Informacoes1.jsx";
-import { Informacoes2 } from "./componentes/Cadastrar/Informacoes/Informacoes2.jsx";
-
+import { Auth } from "./componentes/Cadastrar/Auth/Auth.jsx";
+// import { Informacoes1 } from "./componentes/Cadastrar/Informacoes/Informacoes1.jsx";
+// import { Informacoes2 } from "./componentes/Cadastrar/Informacoes/Informacoes2.jsx";
 
 //Atenção: propriedades iniciadas com "_" são privadas
 
@@ -69,8 +71,9 @@ export function Rotas() {
         <Route element={<Home />} path="/" />
         <Route element={<Cadastrar />} path="/cadastrar">
           <Route element={<Inicial />} path="" />
-          <Route element={<Informacoes1 />} path="1i" />
-          <Route element={<Informacoes2 />} path="2i" />
+          {/* <Route element={<Informacoes1 />} path="1i" /> */}
+          {/* <Route element={<Informacoes2 />} path="2i" /> */}
+          <Route element={<Auth />} path=":auth" />
         </Route>
         <Route element={<Login />} path="/login" />
       </Routes>

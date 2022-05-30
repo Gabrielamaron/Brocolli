@@ -7,8 +7,10 @@
   --fonte-hover: #000000;
 
   /* tamanhos */
-  --padding-padrao: 0.45em;
+  --borda-espessura: 4.75px;
   --borda-padrao: 0.75em;
+  --padding-padrao: 0.45em;
+  --vh-padrao: 78vh; 
 
   /*outros*/
   --transicao-padrao: 625ms;

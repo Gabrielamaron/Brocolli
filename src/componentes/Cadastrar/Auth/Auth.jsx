@@ -1,46 +1,26 @@
-import { Box, TextField, Button } from "@mui/material";
 import React from "react";
-import { atualizaInformacoes2 } from "../../../Routes.jsx";
+import { supabase } from "../../../services/supabase.js";
 
-// supabase
-import { supabase } from "../../../Routes.jsx";
+import { Box, TextField, Button } from "@mui/material";
 
-async function signInWithGithub() {
-  const { user, session, error } = await supabase.auth.signIn({
-    provider: "github",
-  });
-}
-
-// informacoes2: usuário do Github e criar senha
-
-export function retornaDadosInformacoes2() {
-  return dadosInformacoes2;
-}
-
-export function Informacoes2() {
-  //informacoes2
-  const [usuario, setUsuario] = React.useState("");
+export function Auth() {
+  const [email, setEmail] = React.useState("");
   const [senha, setSenha] = React.useState("");
-
-  //objeto de informacoes2
-  const dadosInformacoes2 = {
-    usuarioDado: usuario,
-    senhaDado: senha,
-  };
 
   return (
     <Box
       className="d-flex flex-column justify-content-evenly"
       component="form"
       sx={{
-        height: "80vh",
+        height: "var(--vh-padrao)",
         padding: "var(--padding-padrao)",
       }}
       onSubmit={(event) => {
         event.preventDefault();
-        signInWithGithub();
+        signUp(email, senha);
       }}
     >
+      {/* titulo */}
       <Box className="text-center">
         <h2>
           <svg
@@ -48,16 +28,17 @@ export function Informacoes2() {
             width="32"
             height="32"
             fill="currentColor"
-            class="bi bi-github mx-2"
+            class="bi bi-file-person mx-2"
             viewBox="0 0 16 16"
           >
-            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+            <path d="M12 1a1 1 0 0 1 1 1v10.755S12 11 8 11s-5 1.755-5 1.755V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+            <path d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
           </svg>
-          Use seu usuário e senha do Github
+          Cadastre-se usando um email e crie uma senha:
         </h2>
       </Box>
 
-      {/* usuario do Github */}
+      {/* email */}
       <Box
         className="w-75"
         sx={{
@@ -67,17 +48,18 @@ export function Informacoes2() {
         <TextField
           className="w-50"
           id="filled-basic"
-          label="Usuário do Github"
+          label="Email"
           required
           sx={{
             backgroundColor: "var(--componentes)",
             borderRadius: "var(--borda-padrao)",
+            minWidth: "15em",
           }}
-          value={usuario}
+          value={email}
           variant="filled"
           onChange={(event) => {
-            const novoUsuario = event.target.value;
-            setUsuario(novoUsuario);
+            const novoEmail = event.target.value;
+            setEmail(novoEmail);
           }}
         />
       </Box>
@@ -97,6 +79,7 @@ export function Informacoes2() {
           sx={{
             backgroundColor: "var(--componentes)",
             borderRadius: "var(--borda-padrao)",
+            minWidth: "15em",
           }}
           value={senha}
           variant="filled"
@@ -108,7 +91,8 @@ export function Informacoes2() {
         />
       </Box>
 
-      {/* botao enviar */}
+      {/* botao enviar  */}
+
       <Box
         className="d-flex justify-content-end w-100"
         sx={{
@@ -145,6 +129,20 @@ export function Informacoes2() {
   );
 }
 
-function imprimirTeste(valor) {
-  console.log(valor);
+// Teste: pumpum@gmail.com
+// senha: kakaka
+
+//Prm = parameter
+async function signUp(emailPrm, senha) {
+  try {
+    const { user, error } = await supabase.auth.signUp({
+      email: emailPrm,
+      password: senha,
+    });
+
+    if (error) throw error;
+    console.log("Should be logged");
+  } catch (error) {
+    console.log(error.message);
+  }
 }
