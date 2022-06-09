@@ -4,45 +4,52 @@ import { Box, TextField, Button } from "@mui/material";
 
 import { supabase } from "../../../services/supabase.js";
 
-export function Auth() {
+
+export function SignIn() {
   const [email, setEmail] = React.useState("");
   const [senha, setSenha] = React.useState("");
 
   return (
     <Box
-      className="d-flex flex-column justify-content-evenly"
+      className="align-items-center d-flex flex-column justify-content-evenly  mx-auto my-2 w-50"
       component="form"
       sx={{
-        height: "var(--vh-padrao)",
+        height: "70vh",
+        border: "var(--borda-espessura) solid var(--componentes)",
+        borderRadius: "var(--borda-padrao)",
         padding: "var(--padding-padrao)",
       }}
       onSubmit={(event) => {
         event.preventDefault();
 
-        signUp(email, senha);
+        signIn(email, senha)
       }}
     >
       {/* titulo */}
-      <Box className="text-center">
+      <Box
+        className=" text-center w-50"
+        sx={{
+          padding: "var(--padding-padrao)",
+        }}
+      >
         <h2>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="32"
             height="32"
             fill="currentColor"
-            class="bi bi-file-person mx-2"
+            class="bi bi-file-person-fill mx-2"
             viewBox="0 0 16 16"
           >
-            <path d="M12 1a1 1 0 0 1 1 1v10.755S12 11 8 11s-5 1.755-5 1.755V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
-            <path d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+            <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm-1 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm-3 4c2.623 0 4.146.826 5 1.755V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-1.245C3.854 11.825 5.377 11 8 11z" />
           </svg>
-          Cadastre-se usando um email e crie uma senha:
+          Login
         </h2>
       </Box>
 
       {/* email */}
       <Box
-        className="w-75"
+        className="d-flex justify-content-center w-100"
         sx={{
           padding: "var(--padding-padrao)",
         }}
@@ -61,14 +68,14 @@ export function Auth() {
           variant="filled"
           onChange={(event) => {
             const novoEmail = event.target.value;
-            setEmail(novoEmail, imprimeValorTeste(email));
+            setEmail(novoEmail, imprimeTeste(email));
           }}
         />
       </Box>
 
       {/* senha */}
       <Box
-        className="w-75"
+        className="d-flex justify-content-center w-100"
         sx={{
           padding: "var(--padding-padrao)",
         }}
@@ -83,26 +90,26 @@ export function Auth() {
             borderRadius: "var(--borda-padrao)",
             minWidth: "15em",
           }}
+          type="password"
           value={senha}
           variant="filled"
-          type="password"
           onChange={(event) => {
             const novaSenha = event.target.value;
-            setSenha(novaSenha, imprimeValorTeste(senha));
+            setSenha(novaSenha, imprimeTeste(senha));
           }}
         />
       </Box>
 
-      {/* botao enviar  */}
+      {/* botao enviar */}
       <Box
-        className="d-flex justify-content-end w-100"
+        className="d-flex justify-content-center w-50"
         sx={{
           padding: "var(--padding-padrao)",
           borderRadius: "var(--borda-padrao)",
         }}
       >
         <Button
-          className="botao-avancar d-flex justify-content-center me-5"
+          className="botao-avancar d-flex justify-content-center w-50"
           sx={{
             color: "var(--fonte)",
             textDecoration: "none",
@@ -130,20 +137,21 @@ export function Auth() {
   );
 }
 
-
 //Prm = parameter
-async function signUp(emailPrm, senhaPrm) {
-  let { user, error } = await supabase.auth.signUp({
+async function signIn(emailPrm, senhaPrm) {
+  let { user, error } = await supabase.auth.signIn({
     email: emailPrm,
     password: senhaPrm,
   });
+
   if (error) {
     console.log(error);
     return;
   }
-  console.log("a new user should be created");
+
+  console.log("This should be an existing user in our system");
 }
 
-function imprimeValorTeste(valor) {
+function imprimeTeste(valor) {
   console.log(valor);
 }

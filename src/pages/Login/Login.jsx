@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { Logo } from "../../componentes/Base/Logo/Logo.jsx";
 import { Menu } from "../../componentes/Base/Menu/Menu.jsx";
-import { SignIn } from "../../componentes/SignIn/SignIn.jsx";
+import { SignIn } from "../../componentes/Login/SignIn/SignIn.jsx";
 
 export function Login() {
   return (
