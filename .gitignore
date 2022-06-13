@@ -25,4 +25,4 @@ dist-ssr
 
 
 # directories
-dir_to_ignore/supabase
+*.supabase
