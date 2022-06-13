@@ -1,12 +1,27 @@
 import React from "react";
-
 import { Box, TextField, Button } from "@mui/material";
-
 import { supabase } from "../../../services/supabase.js";
+
+const mensagensErrosSignUp = {
+  m1: {
+    txt: "Unable to validate email address: invalid format",
+    convertido: "Endereço de email inválido",
+  },
+  m2: {
+    txt: "Password should be at least 6 characters",
+    convertido: "A senha deve ter no mínimo 6 caracteres",
+  },
+  m3: {
+    txt: "User already registered",
+    convertido: "Usuário já existente",
+  },
+};
 
 export function Auth() {
   const [email, setEmail] = React.useState("");
   const [senha, setSenha] = React.useState("");
+
+  const [textoValidacao, setTextoValidacao] = React.useState("");
 
   return (
     <Box
@@ -18,8 +33,7 @@ export function Auth() {
       }}
       onSubmit={(event) => {
         event.preventDefault();
-
-        signUp(email, senha);
+        signUp(email, senha, setTextoValidacao);
       }}
     >
       {/* titulo */}
@@ -61,7 +75,7 @@ export function Auth() {
           variant="filled"
           onChange={(event) => {
             const novoEmail = event.target.value;
-            setEmail(novoEmail, imprimeValorTeste(email));
+            setEmail(novoEmail);
           }}
         />
       </Box>
@@ -88,10 +102,13 @@ export function Auth() {
           type="password"
           onChange={(event) => {
             const novaSenha = event.target.value;
-            setSenha(novaSenha, imprimeValorTeste(senha));
+            setSenha(novaSenha);
           }}
         />
       </Box>
+
+      {/* textoValidacao */}
+      <p className="text-danger">{textoValidacao}</p>
 
       {/* botao enviar  */}
       <Box
@@ -130,20 +147,34 @@ export function Auth() {
   );
 }
 
-
 //Prm = parameter
-async function signUp(emailPrm, senhaPrm) {
+async function signUp(emailPrm, senhaPrm, setTexto) {
   let { user, error } = await supabase.auth.signUp({
     email: emailPrm,
     password: senhaPrm,
   });
   if (error) {
-    console.log(error);
+    const erro = error.message;
+    console.log(`Tipo de erro recebido: ${erro}`);
+
+    validacao(erro, setTexto);
     return;
   }
-  console.log("a new user should be created");
+  setTexto("");
+  console.log("A new user has been created in our system");
+  console.log(user.id);
+  // 1i${user.id}
+  navigate(`1i${user.id}`)
 }
 
-function imprimeValorTeste(valor) {
-  console.log(valor);
+function validacao(erro, setTexto) {
+  const mensagensLoop = ["m1", "m2", "m3"];
+  for (let i = 0; i < mensagensLoop.length; i++) {
+    const mTeste = mensagensLoop[i];
+    console.log(mensagensErrosSignUp[mTeste]);
+    if (mensagensErrosSignUp[mTeste].txt == erro) {
+      setTexto(mensagensErrosSignUp[mTeste].convertido);
+      return;
+    }
+  }
 }

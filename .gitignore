@@ -24,5 +24,8 @@ dist-ssr
 *.sw?
 
 
+# files
+notes.txt
+
 # directories
 services/

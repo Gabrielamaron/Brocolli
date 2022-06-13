@@ -1,13 +1,19 @@
 import React from "react";
-
 import { Box, TextField, Button } from "@mui/material";
-
 import { supabase } from "../../../services/supabase.js";
 
+const mensagensErrosSignIn = {
+  m1: {
+    txt: "Invalid login credentials",
+    convertido: "Usuário ou senha inválidos",
+  },
+};
 
 export function SignIn() {
   const [email, setEmail] = React.useState("");
   const [senha, setSenha] = React.useState("");
+
+  const [textoValidacao, setTextoValidacao] = React.useState("");
 
   return (
     <Box
@@ -21,8 +27,7 @@ export function SignIn() {
       }}
       onSubmit={(event) => {
         event.preventDefault();
-
-        signIn(email, senha)
+        signIn(email, senha, setTextoValidacao);
       }}
     >
       {/* titulo */}
@@ -68,7 +73,7 @@ export function SignIn() {
           variant="filled"
           onChange={(event) => {
             const novoEmail = event.target.value;
-            setEmail(novoEmail, imprimeTeste(email));
+            setEmail(novoEmail);
           }}
         />
       </Box>
@@ -95,10 +100,13 @@ export function SignIn() {
           variant="filled"
           onChange={(event) => {
             const novaSenha = event.target.value;
-            setSenha(novaSenha, imprimeTeste(senha));
+            setSenha(novaSenha);
           }}
         />
       </Box>
+
+      {/* textoValidacao */}
+      <p className="text-danger">{textoValidacao}</p>
 
       {/* botao enviar */}
       <Box
@@ -138,20 +146,32 @@ export function SignIn() {
 }
 
 //Prm = parameter
-async function signIn(emailPrm, senhaPrm) {
+async function signIn(emailPrm, senhaPrm, setTexto) {
   let { user, error } = await supabase.auth.signIn({
     email: emailPrm,
     password: senhaPrm,
   });
 
   if (error) {
-    console.log(error);
+    const erro = error.message;
+    console.log(`Tipo de erro recebido: ${erro}`);
+
+    validacao(erro, setTexto)
     return;
   }
 
-  console.log("This should be an existing user in our system");
+  setTexto("");
+
+  console.log("This is a user already authenticated in our system");
+  console.log(user.id);
 }
 
-function imprimeTeste(valor) {
-  console.log(valor);
+function validacao(erro, setTexto) {
+  const mensagemTeste = "m1";
+    if (mensagensErrosSignIn[mensagemTeste].txt == erro) {
+      console.log("if statment working here");
+      setTexto(mensagensErrosSignIn[mensagemTeste].convertido);
+      return;
+    }
+  
 }
