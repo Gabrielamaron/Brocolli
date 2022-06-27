@@ -2,26 +2,15 @@ import React from "react";
 import { Box, TextField, Button } from "@mui/material";
 import { supabase } from "../../../services/supabase.js";
 
-const mensagensErrosSignUp = {
-  m1: {
-    txt: "Unable to validate email address: invalid format",
-    convertido: "Endereço de email inválido",
-  },
-  m2: {
-    txt: "Password should be at least 6 characters",
-    convertido: "A senha deve ter no mínimo 6 caracteres",
-  },
-  m3: {
-    txt: "User already registered",
-    convertido: "Usuário já existente",
-  },
-};
-
 export function Auth() {
   const [email, setEmail] = React.useState("");
   const [senha, setSenha] = React.useState("");
 
   const [textoValidacao, setTextoValidacao] = React.useState("");
+
+  function navegacao(emailUsuario) {
+    window.location.href = `informacoes/?user=${emailUsuario}`;
+  }
 
   return (
     <Box
@@ -33,7 +22,8 @@ export function Auth() {
       }}
       onSubmit={(event) => {
         event.preventDefault();
-        signUp(email, senha, setTextoValidacao);
+
+        signUp(email, senha, setTextoValidacao, navegacao);
       }}
     >
       {/* titulo */}
@@ -110,7 +100,7 @@ export function Auth() {
       {/* textoValidacao */}
       <p className="text-danger">{textoValidacao}</p>
 
-      {/* botao enviar  */}
+      {/* botao enviar */}
       <Box
         className="d-flex justify-content-end w-100"
         sx={{
@@ -147,32 +137,50 @@ export function Auth() {
   );
 }
 
+const mensagensErrosSignUp = {
+  m1: {
+    txt: "Unable to validate email address: invalid format",
+    convertido: "Endereço de email inválido",
+  },
+  m2: {
+    txt: "Password should be at least 6 characters",
+    convertido: "A senha deve ter no mínimo 6 caracteres",
+  },
+  m3: {
+    txt: "User already registered",
+    convertido: "Usuário já existente",
+  },
+};
+
 //Prm = parameter
-async function signUp(emailPrm, senhaPrm, setTexto) {
+async function signUp(emailPrm, senhaPrm, setTexto, navegacao) {
   let { user, error } = await supabase.auth.signUp({
     email: emailPrm,
     password: senhaPrm,
   });
+
   if (error) {
     const erro = error.message;
     console.log(`Tipo de erro recebido: ${erro}`);
-
     validacao(erro, setTexto);
+
     return;
   }
+
   setTexto("");
   console.log("A new user has been created in our system");
-  console.log(user.id);
-  // 1i${user.id}
-  navigate(`1i${user.id}`)
+
+  const emailNovoUsuario = user.email;
+
+  navegacao(emailNovoUsuario);
 }
 
 function validacao(erro, setTexto) {
   const mensagensLoop = ["m1", "m2", "m3"];
   for (let i = 0; i < mensagensLoop.length; i++) {
     const mTeste = mensagensLoop[i];
-    console.log(mensagensErrosSignUp[mTeste]);
     if (mensagensErrosSignUp[mTeste].txt == erro) {
+      console.log(mensagensErrosSignUp[mTeste]);
       setTexto(mensagensErrosSignUp[mTeste].convertido);
       return;
     }

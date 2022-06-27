@@ -4,7 +4,13 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
+import { supabase } from "../../../services/supabase.js";
+
 //informacoes: nome, data de nascimento, localidade
+
+//to do: get the user's id on supabase
+// insert new data on supabase table
+
 
 export function Informacoes() {
   const [nome, setNome] = React.useState("");
@@ -12,6 +18,14 @@ export function Informacoes() {
   const [localidade, setLocalidade] = React.useState("");
 
   const [textoValidacaoData, setTextoValidacaoData] = React.useState("");
+
+  const enderecoAtual = window.location.href; 
+  const regex = /user=.*/g;
+  const user = enderecoAtual.match(regex).toString();
+  const emailUsuario = user.slice(5)
+
+  const usuarioSupabase = supabase.auth.user()
+  console.log(usuarioSupabase);
 
   return (
     <Box
@@ -123,7 +137,7 @@ export function Informacoes() {
           }}
         />
       </Box>
-      
+
       {/* botao enviar */}
       <Box
         className="d-flex justify-content-end w-100"
