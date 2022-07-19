@@ -31,6 +31,8 @@ export function Menu() {
           </svg>
         </button>
         <Box className="collapse navbar-collapse" id="navbar-items">
+
+          {/* links */}
           <ul className="navbar-nav menu-home me-auto mb-2 mb-lg-0">
             <li
             className="nav-item"

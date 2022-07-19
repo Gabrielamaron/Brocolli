@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import { Box, TextField, Button } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -8,10 +9,6 @@ import { supabase } from "../../../services/supabase.js";
 
 //informacoes: nome, data de nascimento, localidade
 
-//to do: get the user's id on supabase
-// insert new data on supabase table
-
-
 export function Informacoes() {
   const [nome, setNome] = React.useState("");
   const [dataNascimento, setDataNascimento] = React.useState(null);
@@ -19,20 +16,27 @@ export function Informacoes() {
 
   const [textoValidacaoData, setTextoValidacaoData] = React.useState("");
 
-  const enderecoAtual = window.location.href; 
-  const regex = /user=.*/g;
-  const user = enderecoAtual.match(regex).toString();
-  const emailUsuario = user.slice(5)
+  const usuarioSupabase = supabase.auth.user();
 
-  const usuarioSupabase = supabase.auth.user()
-  console.log(usuarioSupabase);
+  let navigate = useNavigate();
 
   return (
     <Box
       className="d-flex flex-column justify-content-evenly"
       component="form"
       onSubmit={(event) => {
-        checaIdadeNovoUsuario(event, dataNascimento, setTextoValidacaoData);
+        event.preventDefault();
+
+        if (checaIdadeNovoUsuario(dataNascimento, setTextoValidacaoData)) {
+          atribuiDadosUsuario(
+            supabase,
+            usuarioSupabase,
+            nome,
+            dataNascimento,
+            localidade,
+            navigate
+          );
+        }
       }}
       sx={{
         height: "80vh",
@@ -175,8 +179,7 @@ export function Informacoes() {
   );
 }
 
-function checaIdadeNovoUsuario(event, dataNascimento, assessorSetTexto) {
-  event.preventDefault();
+function checaIdadeNovoUsuario(dataNascimento, assessorSetTexto) {
   const dataAtual = new Date();
   const dataFormatada = new Date(
     dataNascimento.getFullYear() + 18,
@@ -186,12 +189,38 @@ function checaIdadeNovoUsuario(event, dataNascimento, assessorSetTexto) {
 
   if (!confereMaiorDeIdade(dataFormatada, dataAtual)) {
     assessorSetTexto("Você deve ser maior de idade para abrir uma conta!");
-    return;
+    console.log("menor de idade");
+    return false;
   } else {
     assessorSetTexto("");
+    console.log("maior de idade");
+    return true;
   }
 }
 
 function confereMaiorDeIdade(dataFormatada, dataAtual) {
   return dataFormatada <= dataAtual;
+}
+
+async function atribuiDadosUsuario(
+  supabase,
+  usuario,
+  nome,
+  dataNascimento,
+  localidade,
+  navigate
+) {
+  const novoUsuario = {
+    id: usuario.id,
+    nome: nome,
+    dataNascimento: dataNascimento,
+    localidade: localidade,
+  };
+  const { data, error } = await supabase
+    .from("usuario")
+    .insert(novoUsuario)
+    .then((resposta) => {
+      console.log(resposta);
+      navigate("/homebroker", { replace: true });
+    });
 }

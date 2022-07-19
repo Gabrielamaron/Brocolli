@@ -9,7 +9,6 @@ export function Logo() {
           alignItems: "center",
           display: "flex",
           padding: "var(--padding-padrao)",
-          justifyContent: "space-around",
         }}
       >
         <nav>

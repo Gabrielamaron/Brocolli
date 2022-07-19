@@ -8,10 +8,6 @@ export function Auth() {
 
   const [textoValidacao, setTextoValidacao] = React.useState("");
 
-  function navegacao(emailUsuario) {
-    window.location.href = `informacoes/?user=${emailUsuario}`;
-  }
-
   return (
     <Box
       className="d-flex flex-column justify-content-evenly"
@@ -23,7 +19,7 @@ export function Auth() {
       onSubmit={(event) => {
         event.preventDefault();
 
-        signUp(email, senha, setTextoValidacao, navegacao);
+        signUp(email, senha, setTextoValidacao);
       }}
     >
       {/* titulo */}
@@ -152,8 +148,20 @@ const mensagensErrosSignUp = {
   },
 };
 
+function validacao(erro, setTexto) {
+  const mensagensLoop = ["m1", "m2", "m3"];
+  for (let i = 0; i < mensagensLoop.length; i++) {
+    const mTeste = mensagensLoop[i];
+    if (mensagensErrosSignUp[mTeste].txt == erro) {
+      console.log(mensagensErrosSignUp[mTeste]);
+      setTexto(mensagensErrosSignUp[mTeste].convertido);
+      return;
+    }
+  }
+}
+
 //Prm = parameter
-async function signUp(emailPrm, senhaPrm, setTexto, navegacao) {
+async function signUp(emailPrm, senhaPrm, setTexto) {
   let { user, error } = await supabase.auth.signUp({
     email: emailPrm,
     password: senhaPrm,
@@ -170,19 +178,5 @@ async function signUp(emailPrm, senhaPrm, setTexto, navegacao) {
   setTexto("");
   console.log("A new user has been created in our system");
 
-  const emailNovoUsuario = user.email;
-
-  navegacao(emailNovoUsuario);
-}
-
-function validacao(erro, setTexto) {
-  const mensagensLoop = ["m1", "m2", "m3"];
-  for (let i = 0; i < mensagensLoop.length; i++) {
-    const mTeste = mensagensLoop[i];
-    if (mensagensErrosSignUp[mTeste].txt == erro) {
-      console.log(mensagensErrosSignUp[mTeste]);
-      setTexto(mensagensErrosSignUp[mTeste].convertido);
-      return;
-    }
-  }
+  window.location.href = "informacoes";
 }

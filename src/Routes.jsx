@@ -5,6 +5,7 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { Home } from "./pages/Home/Home.jsx";
 import { Cadastrar } from "./pages/Cadastrar/Cadastrar.jsx";
 import { Login } from "./pages/Login/Login.jsx";
+import { Homebroker } from "./pages/Homebroker/Homebroker.jsx";
 
 //nested components
 import { Inicial } from "./componentes/Cadastrar/Inicial/Inicial.jsx";
@@ -20,9 +21,10 @@ export function Rotas() {
         <Route element={<Cadastrar />} path="/cadastrar">
           <Route element={<Inicial />} path=""/>
           <Route element={<Auth />} path=":auth" exact/>
-          <Route element={<Informacoes />} path="informacoes/"  />
+          <Route element={<Informacoes />} path="informacoes"  />
         </Route>
         <Route element={<Login />} path="/login" />
+        <Route element={<Homebroker/>} path="/homebroker"/>
       </Routes>
     </BrowserRouter>
   );

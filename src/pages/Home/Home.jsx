@@ -10,7 +10,6 @@ export function Home() {
   return (
     <>
       {/* Menu */}
-
       <Box
         sx={{
           alignItems: "center",
